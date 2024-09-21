@@ -34,7 +34,12 @@ def webServer(port=13331):
       #This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?    
               
       #Content-Type is an example on how to send a header as bytes. There are more!
-      outputdata = b"HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+      outputdata = (
+          b"HTTP/1.1 200 OK\r\n"
+          b"Content-Type: text/html; charset=UTF-8\r\n"
+          b"Server: SimplePythonServer\r\n"   # Adding the Server header
+          b"Connection: close\r\n\r\n"        # Adding the Connection header
+      )
 
       #Note that a complete header must end with a blank line, creating the four-byte sequence "\r\n\r\n" Refer to https://w3.cs.jmu.edu/kirkpams/OpenCSF/Books/csf/html/TCPSockets.html
       
@@ -51,7 +56,13 @@ def webServer(port=13331):
       # Send response message for invalid request due to the file not being found (404)
       # Remember the format you used in the try: block!
       #Fill in start
-      invalidMessage = b"HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n<html><body><h1>404 Not Found</h1></body></html>"
+      invalidMessage = (
+          b"HTTP/1.1 404 Not Found\r\n"
+          b"Content-Type: text/html; charset=UTF-8\r\n"
+          b"Server: SimplePythonServer\r\n"
+          b"Connection: close\r\n\r\n"
+          b"<html><body><h1>404 Not Found</h1></body></html>"
+      )
       connectionSocket.send(invalidMessage)
       connectionSocket.close()
 
